@@ -1,0 +1,16 @@
+Subject: 'Centrifugo'
+Description: 'Deploy do orquestrador de websockets do Celebro.'
+RequesterEmail: 'devrc@stone.com.br'
+Impact: 'Low'
+Risk: 'Low'
+Priority: 'Low'
+ChangeType: 'Standard'
+TimeZoneId: 'Brazil/East'
+
+CustomFields:
+  ChangeReason: Feature # - Feature /  Bugfix / BugfixAndFeature
+  CanAffectOtherSystems: false
+  EmergencialChange: false
+  CanAffectCriticalSystems: false
+  WillAffectExternalCustomers: false
+  WillAffectInternalCustomers: false
