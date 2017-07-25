@@ -1,75 +1,16 @@
 Subject: 'Centrifugo'
-Description: 'Deploy do orquestrador de websockets do Celebro'
+Description: 'Deploy do orquestrador de websockets do Celebro.'
 RequesterEmail: 'devrc@stone.com.br'
-# (Opcional, calculado com base nas respostas dos campos
-#adicionais)
-#Possível impacto da mudança:
-#   Low = 1,
-#   Medium = 2,
-#   High = 3,
 Impact: 'Low'
-
-# (Opcional, calculado com base nas respostas dos campos
-#adicionais)
-# Risco de aplicação da mudança:
-#   Low = 1,
-#   Medium = 2,
-#   High = 3,
-#   VeryHigh = 4,
 Risk: 'Low'
-
-
-# Prioridade de execução da mudança:
-#   Low = 1,
-#   Medium = 2,
-#   High = 3,
-#   VeryHigh = 4,
 Priority: 'Low'
-
-
-# Tipo de mudança:
-#   Minor = 1,
-#   Standard = 2,
-#   Major = 3,
-#   Emergency = 4,
 ChangeType: 'Standard'
-
-#Janela de deploy (opcional):
-# Os campos de data/hora para execução do deploy passam a ser opcionais,
-# quando não informados o deploy é executado logo após a aprovação.
-
-# Data prevista de inicio da aplicação da mudança
-# PlannedStartDate: '2017-06-22T23:16:30'
-# Data prevista de fim da aplicação da mudança
-# PlannedEndDate: '2017-06-22T23:17:00'
-# Zona de tempo do amigo.stone
 TimeZoneId: 'Brazil/East'
 
 CustomFields:
-# Opcional (boolean): Se foi executado algum teste funcional antes do deploy (stg).
-  WasFunctionalTestExecuted: true
-# Opcional (string): Descrição do teste executado.
-  TestDescription: 'Testes de sistema automatizados executados pelo GoCD'
-# Opcional (string) Descrição de possível impacto da aplicação da mudança.
-  PossibleImpact: 'Nenhum impacto mapeado'
-# Opcional (string): Quem validou a mudança após o deploy.
-  ChangeValidatorName: devrc@stone.com.br
-# Opcional (string): Departamento que validou a mudança.
-  ChangeValidatorDepartment: 'RC'
-# Opcional (string): Nome da aplicação implantada.
-  SystemName: Centrifugo
-# Obrigatório (enum): Motivo do deploy, valores possíveis:
-# - Feature
-# - Bugfix
-# - BugfixAndFeature
-  ChangeReason: Feature
-# Obrigatório (boolean): É uma mudança emergencial?
-  EmergencialChange: false
-# Obrigatório (boolean): Pode afetar outros sistemas em produção?
+  ChangeReason: Feature # - Feature /  Bugfix / BugfixAndFeature
   CanAffectOtherSystems: false
-# Obrigatório (boolean): Pode afetar sistemas críticos (Autorização, Pagamento, Atendimento)?
+  EmergencialChange: false
   CanAffectCriticalSystems: false
-# Obrigatório (boolean): Irá afetar clientes/parceiros stone?
   WillAffectExternalCustomers: false
-# Obrigatório (boolean): Irá afetar clientes internos (colaboradores) stone?
   WillAffectInternalCustomers: false
