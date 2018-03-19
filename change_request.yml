@@ -15,5 +15,5 @@ CustomFields:
   WillAffectExternalCustomers: false
   WillAffectInternalCustomers: false
   IsProductionEnvironment: false
-  ApplicationVersion: v1.7.3
+  ApplicationVersion: v1.7.4
   SystemName: Centrifugo
