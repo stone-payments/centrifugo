@@ -18,12 +18,12 @@ import (
 	"time"
 
 	"github.com/FZambia/viper-lite"
-	"github.com/centrifugal/centrifugo/libcentrifugo/config"
-	"github.com/centrifugal/centrifugo/libcentrifugo/engine"
-	"github.com/centrifugal/centrifugo/libcentrifugo/logger"
-	"github.com/centrifugal/centrifugo/libcentrifugo/node"
-	"github.com/centrifugal/centrifugo/libcentrifugo/plugin"
-	"github.com/centrifugal/centrifugo/libcentrifugo/server"
+	"github.com/stone-payments/centrifugo/libcentrifugo/config"
+	"github.com/stone-payments/centrifugo/libcentrifugo/engine"
+	"github.com/stone-payments/centrifugo/libcentrifugo/logger"
+	"github.com/stone-payments/centrifugo/libcentrifugo/node"
+	"github.com/stone-payments/centrifugo/libcentrifugo/plugin"
+	"github.com/stone-payments/centrifugo/libcentrifugo/server"
 	"github.com/igm/sockjs-go/sockjs"
 	"github.com/rakyll/statik/fs"
 	"github.com/spf13/cobra"
@@ -358,7 +358,7 @@ func runServer(n *node.Node, s *server.HTTPServer) error {
 					Handler: mux,
 					TLSConfig: &tls.Config{
 						GetCertificate: func(hello *tls.ClientHelloInfo) (*tls.Certificate, error) {
-							// See https://github.com/centrifugal/centrifugo/issues/144#issuecomment-279393819
+							// See https://github.com/stone-payments/centrifugo/issues/144#issuecomment-279393819
 							if sslAutocertServerName != "" && hello.ServerName == "" {
 								hello.ServerName = sslAutocertServerName
 							}

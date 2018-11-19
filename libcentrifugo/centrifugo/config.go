@@ -11,10 +11,10 @@ import (
 	"time"
 
 	"github.com/FZambia/viper-lite"
-	"github.com/centrifugal/centrifugo/libcentrifugo/channel"
-	"github.com/centrifugal/centrifugo/libcentrifugo/config"
-	"github.com/centrifugal/centrifugo/libcentrifugo/node"
-	"github.com/centrifugal/centrifugo/libcentrifugo/server"
+	"github.com/stone-payments/centrifugo/libcentrifugo/channel"
+	"github.com/stone-payments/centrifugo/libcentrifugo/config"
+	"github.com/stone-payments/centrifugo/libcentrifugo/node"
+	"github.com/stone-payments/centrifugo/libcentrifugo/server"
 	"github.com/satori/go.uuid"
 )
 

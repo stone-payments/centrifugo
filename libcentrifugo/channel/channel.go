@@ -58,6 +58,6 @@ type Options struct {
 
 	// HistoryDropInactive enables an optimization where history is only saved for channels that have at
 	// least one active subscriber. This can give a huge memory saving, with only minor edgecases that are
-	// different from without it as noted on https://github.com/centrifugal/centrifugo/issues/50.
+	// different from without it as noted on https://github.com/stone-payments/centrifugo/issues/50.
 	HistoryDropInactive bool `mapstructure:"history_drop_inactive" json:"history_drop_inactive"`
 }

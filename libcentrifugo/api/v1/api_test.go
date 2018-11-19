@@ -3,9 +3,9 @@ package apiv1
 import (
 	"testing"
 
-	"github.com/centrifugal/centrifugo/libcentrifugo/channel"
-	"github.com/centrifugal/centrifugo/libcentrifugo/node"
-	"github.com/centrifugal/centrifugo/libcentrifugo/proto"
+	"github.com/stone-payments/centrifugo/libcentrifugo/channel"
+	"github.com/stone-payments/centrifugo/libcentrifugo/node"
+	"github.com/stone-payments/centrifugo/libcentrifugo/proto"
 	"github.com/stretchr/testify/assert"
 )
 

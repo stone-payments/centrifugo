@@ -12,14 +12,14 @@ import (
 	"time"
 
 	"github.com/FZambia/go-sentinel"
-	"github.com/centrifugal/centrifugo/libcentrifugo/api/v1"
-	"github.com/centrifugal/centrifugo/libcentrifugo/channel"
-	"github.com/centrifugal/centrifugo/libcentrifugo/config"
-	"github.com/centrifugal/centrifugo/libcentrifugo/engine"
-	"github.com/centrifugal/centrifugo/libcentrifugo/logger"
-	"github.com/centrifugal/centrifugo/libcentrifugo/node"
-	"github.com/centrifugal/centrifugo/libcentrifugo/plugin"
-	"github.com/centrifugal/centrifugo/libcentrifugo/proto"
+	"github.com/stone-payments/centrifugo/libcentrifugo/api/v1"
+	"github.com/stone-payments/centrifugo/libcentrifugo/channel"
+	"github.com/stone-payments/centrifugo/libcentrifugo/config"
+	"github.com/stone-payments/centrifugo/libcentrifugo/engine"
+	"github.com/stone-payments/centrifugo/libcentrifugo/logger"
+	"github.com/stone-payments/centrifugo/libcentrifugo/node"
+	"github.com/stone-payments/centrifugo/libcentrifugo/plugin"
+	"github.com/stone-payments/centrifugo/libcentrifugo/proto"
 	"github.com/garyburd/redigo/redis"
 )
 

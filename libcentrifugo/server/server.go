@@ -4,9 +4,9 @@ import (
 	"net/http"
 	"sync"
 
-	"github.com/centrifugal/centrifugo/libcentrifugo/metrics"
-	"github.com/centrifugal/centrifugo/libcentrifugo/node"
-	"github.com/centrifugal/centrifugo/libcentrifugo/plugin"
+	"github.com/stone-payments/centrifugo/libcentrifugo/metrics"
+	"github.com/stone-payments/centrifugo/libcentrifugo/node"
+	"github.com/stone-payments/centrifugo/libcentrifugo/plugin"
 )
 
 func init() {

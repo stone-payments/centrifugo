@@ -7,7 +7,7 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/centrifugal/centrifugo/libcentrifugo/auth"
+	"github.com/stone-payments/centrifugo/libcentrifugo/auth"
 	"golang.org/x/net/websocket"
 )
 

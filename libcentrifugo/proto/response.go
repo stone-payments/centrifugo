@@ -1,7 +1,7 @@
 package proto
 
 import (
-	"github.com/centrifugal/centrifugo/libcentrifugo/raw"
+	"github.com/stone-payments/centrifugo/libcentrifugo/raw"
 	"github.com/valyala/bytebufferpool"
 )
 

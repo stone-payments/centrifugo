@@ -4,7 +4,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/centrifugal/centrifugo/libcentrifugo/conns"
+	"github.com/stone-payments/centrifugo/libcentrifugo/conns"
 	"github.com/gorilla/websocket"
 	"github.com/igm/sockjs-go/sockjs"
 )

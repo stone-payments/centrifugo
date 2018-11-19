@@ -3,7 +3,7 @@ package conns
 import (
 	"sync"
 
-	"github.com/centrifugal/centrifugo/libcentrifugo/logger"
+	"github.com/stone-payments/centrifugo/libcentrifugo/logger"
 )
 
 // ClientHub is an interface describing current client connections to node.

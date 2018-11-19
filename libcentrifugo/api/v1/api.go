@@ -3,9 +3,9 @@ package apiv1
 import (
 	"encoding/json"
 
-	"github.com/centrifugal/centrifugo/libcentrifugo/logger"
-	"github.com/centrifugal/centrifugo/libcentrifugo/node"
-	"github.com/centrifugal/centrifugo/libcentrifugo/proto"
+	"github.com/stone-payments/centrifugo/libcentrifugo/logger"
+	"github.com/stone-payments/centrifugo/libcentrifugo/node"
+	"github.com/stone-payments/centrifugo/libcentrifugo/proto"
 )
 
 // APICommandFromJSON tries to extract single APICommand encoded as JSON.

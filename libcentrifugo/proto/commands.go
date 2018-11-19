@@ -3,7 +3,7 @@ package proto
 import (
 	"encoding/json"
 
-	"github.com/centrifugal/centrifugo/libcentrifugo/raw"
+	"github.com/stone-payments/centrifugo/libcentrifugo/raw"
 )
 
 // NodeInfo contains information and statistics about Centrifugo node.

@@ -1,8 +1,8 @@
 package engine
 
 import (
-	"github.com/centrifugal/centrifugo/libcentrifugo/channel"
-	"github.com/centrifugal/centrifugo/libcentrifugo/proto"
+	"github.com/stone-payments/centrifugo/libcentrifugo/channel"
+	"github.com/stone-payments/centrifugo/libcentrifugo/proto"
 )
 
 // Engine is an interface with all methods that can be used by client or

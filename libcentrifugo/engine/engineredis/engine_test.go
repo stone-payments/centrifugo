@@ -10,12 +10,12 @@ import (
 	"testing"
 	"time"
 
-	"github.com/centrifugal/centrifugo/libcentrifugo/channel"
-	"github.com/centrifugal/centrifugo/libcentrifugo/config"
-	"github.com/centrifugal/centrifugo/libcentrifugo/logger"
-	"github.com/centrifugal/centrifugo/libcentrifugo/node"
-	"github.com/centrifugal/centrifugo/libcentrifugo/proto"
-	"github.com/centrifugal/centrifugo/libcentrifugo/raw"
+	"github.com/stone-payments/centrifugo/libcentrifugo/channel"
+	"github.com/stone-payments/centrifugo/libcentrifugo/config"
+	"github.com/stone-payments/centrifugo/libcentrifugo/logger"
+	"github.com/stone-payments/centrifugo/libcentrifugo/node"
+	"github.com/stone-payments/centrifugo/libcentrifugo/proto"
+	"github.com/stone-payments/centrifugo/libcentrifugo/raw"
 	"github.com/garyburd/redigo/redis"
 	"github.com/stretchr/testify/assert"
 )

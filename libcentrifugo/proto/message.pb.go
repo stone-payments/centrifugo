@@ -23,7 +23,7 @@ import fmt "fmt"
 import math "math"
 import _ "github.com/gogo/protobuf/gogoproto"
 
-import github_com_centrifugal_centrifugo_libcentrifugo_raw "github.com/centrifugal/centrifugo/libcentrifugo/raw"
+import github_com_centrifugal_centrifugo_libcentrifugo_raw "github.com/stone-payments/centrifugo/libcentrifugo/raw"
 
 import io "io"
 
@@ -41,8 +41,8 @@ const _ = proto1.GoGoProtoPackageIsVersion2 // please upgrade the proto package
 type ClientInfo struct {
 	User        string                                                  `protobuf:"bytes,1,opt,name=User,proto3" json:"user"`
 	Client      string                                                  `protobuf:"bytes,2,opt,name=Client,proto3" json:"client"`
-	DefaultInfo github_com_centrifugal_centrifugo_libcentrifugo_raw.Raw `protobuf:"bytes,3,opt,name=DefaultInfo,proto3,customtype=github.com/centrifugal/centrifugo/libcentrifugo/raw.Raw" json:"default_info,omitempty"`
-	ChannelInfo github_com_centrifugal_centrifugo_libcentrifugo_raw.Raw `protobuf:"bytes,4,opt,name=ChannelInfo,proto3,customtype=github.com/centrifugal/centrifugo/libcentrifugo/raw.Raw" json:"channel_info,omitempty"`
+	DefaultInfo github_com_centrifugal_centrifugo_libcentrifugo_raw.Raw `protobuf:"bytes,3,opt,name=DefaultInfo,proto3,customtype=github.com/stone-payments/centrifugo/libcentrifugo/raw.Raw" json:"default_info,omitempty"`
+	ChannelInfo github_com_centrifugal_centrifugo_libcentrifugo_raw.Raw `protobuf:"bytes,4,opt,name=ChannelInfo,proto3,customtype=github.com/stone-payments/centrifugo/libcentrifugo/raw.Raw" json:"channel_info,omitempty"`
 }
 
 func (m *ClientInfo) Reset()                    { *m = ClientInfo{} }
@@ -53,7 +53,7 @@ func (*ClientInfo) Descriptor() ([]byte, []int) { return fileDescriptorMessage, 
 type Message struct {
 	UID     string                                                  `protobuf:"bytes,1,opt,name=UID,proto3" json:"uid"`
 	Channel string                                                  `protobuf:"bytes,3,opt,name=Channel,proto3" json:"channel"`
-	Data    github_com_centrifugal_centrifugo_libcentrifugo_raw.Raw `protobuf:"bytes,4,opt,name=Data,proto3,customtype=github.com/centrifugal/centrifugo/libcentrifugo/raw.Raw" json:"data"`
+	Data    github_com_centrifugal_centrifugo_libcentrifugo_raw.Raw `protobuf:"bytes,4,opt,name=Data,proto3,customtype=github.com/stone-payments/centrifugo/libcentrifugo/raw.Raw" json:"data"`
 	Client  string                                                  `protobuf:"bytes,5,opt,name=Client,proto3" json:"client,omitempty"`
 	Info    *ClientInfo                                             `protobuf:"bytes,6,opt,name=Info" json:"info,omitempty"`
 }
@@ -109,7 +109,7 @@ type ControlMessage struct {
 	// this control command.
 	UID    string                                                  `protobuf:"bytes,1,opt,name=UID,proto3" json:"uid"`
 	Method string                                                  `protobuf:"bytes,2,opt,name=Method,proto3" json:"method"`
-	Params github_com_centrifugal_centrifugo_libcentrifugo_raw.Raw `protobuf:"bytes,3,opt,name=Params,proto3,customtype=github.com/centrifugal/centrifugo/libcentrifugo/raw.Raw" json:"params"`
+	Params github_com_centrifugal_centrifugo_libcentrifugo_raw.Raw `protobuf:"bytes,3,opt,name=Params,proto3,customtype=github.com/stone-payments/centrifugo/libcentrifugo/raw.Raw" json:"params"`
 }
 
 func (m *ControlMessage) Reset()                    { *m = ControlMessage{} }
@@ -120,7 +120,7 @@ func (*ControlMessage) Descriptor() ([]byte, []int) { return fileDescriptorMessa
 type AdminMessage struct {
 	UID    string                                                  `protobuf:"bytes,1,opt,name=UID,proto3" json:"uid"`
 	Method string                                                  `protobuf:"bytes,2,opt,name=Method,proto3" json:"method"`
-	Params github_com_centrifugal_centrifugo_libcentrifugo_raw.Raw `protobuf:"bytes,3,opt,name=Params,proto3,customtype=github.com/centrifugal/centrifugo/libcentrifugo/raw.Raw" json:"params"`
+	Params github_com_centrifugal_centrifugo_libcentrifugo_raw.Raw `protobuf:"bytes,3,opt,name=Params,proto3,customtype=github.com/stone-payments/centrifugo/libcentrifugo/raw.Raw" json:"params"`
 }
 
 func (m *AdminMessage) Reset()                    { *m = AdminMessage{} }

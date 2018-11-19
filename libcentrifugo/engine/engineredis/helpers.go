@@ -4,7 +4,7 @@ import (
 	"errors"
 	"hash/fnv"
 
-	"github.com/centrifugal/centrifugo/libcentrifugo/proto"
+	"github.com/stone-payments/centrifugo/libcentrifugo/proto"
 	"github.com/garyburd/redigo/redis"
 )
 

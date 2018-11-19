@@ -7,7 +7,7 @@ import (
 	"sync"
 	"testing"
 
-	"github.com/centrifugal/centrifugo/libcentrifugo/raw"
+	"github.com/stone-payments/centrifugo/libcentrifugo/raw"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -66,7 +66,7 @@ func TestAdminMessageResponse(t *testing.T) {
 
 // TestClientMessageMarshalManual tests valid using of buffer pools
 // when marshalling JSON messages manually.
-// This is related to https://github.com/centrifugal/centrifugo/issues/94
+// This is related to https://github.com/stone-payments/centrifugo/issues/94
 // and without fix reproduces problem described in issue.
 func TestClientMessageMarshalManual(t *testing.T) {
 	responses := make([]*ClientMessageResponse, 1000)
