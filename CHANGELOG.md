@@ -1,3 +1,152 @@
+v2.0.2
+======
+
+**Important** If you are using `rpm` or `deb` packages from packagecloud.io then you have to re-run the [installation method of your choice](https://packagecloud.io/FZambia/centrifugo/install) for Centrifugo repository. This is required to update GPG key used. This is a standard process that all packages hosted on packagecloud should do. 
+
+Improvements:
+
+* Redis TLS connection support - see [issue in Centrifuge lib](https://github.com/centrifugal/centrifuge/issues/23) and [updated docs](https://centrifugal.github.io/centrifugo/server/engines/#redis-engine)
+* Do not send Authorization header in admin web interface when insecure admin mode enabled - helps to protect admin interface with basic authorization (see [#240](https://github.com/centrifugal/centrifugo/issues/240))
+
+Fixes:
+
+* Resubscribe only to shard subset of channels after reconnect to Redis ([issue](https://github.com/centrifugal/centrifuge/issues/25))
+
+
+v2.0.1
+======
+
+This release has several fixes and performance improvements
+
+Improvements:
+
+* Use latest SockJS url (SockJS version 1.3) for iframe transports
+* Improve performance of massive subscriptions to different channels
+* Allow dot in namespace names
+
+Fixes:
+
+* Fix of possible deadlock in Redis Engine when subscribe operation fails
+* Fix admin web interface [logout issue](https://github.com/centrifugal/web/issues/14) when session expired
+* Fix io timeout error when using Redis Engine with sharding enabled
+* Fix `checkconfig` command
+* Fix typo in metric name - see [#233](https://github.com/centrifugal/centrifugo/pull/233)
+
+v2.0.0
+======
+
+This is a new major version of Centrifugo. New version has some important changes and useful features.
+
+Centrifugo v2 serves the same purpose as Centrifugo v1. Centrifugo v2 is not backwards compatible with v1 – migration to it will require adapting both backend and frontend sides of your application (of course if you decide to migrate).
+
+Centrifugo is now based on new library [centrifuge](https://github.com/centrifugal/centrifuge) for Go language. That library can be used standalone to get even more than Centrifugo server provides – like custom authentication, your own permission management, asynchronous message passing, RPC calls etc.
+
+Highlights of v2:
+
+* Cleaner and more structured client-server protocol defined in protobuf schema. Protocol is more compact because some fields with default values that were sent previously now omitted
+* Binary Websocket support (Protobuf). Protobuf allows to transfer data in much more compact and performant way than before. Of course JSON is still the main serialization format
+* JWT for authentication and private channel authorization instead of hand-crafted HMAC sign. This means that there is no need in extra libraries to generate connection and subscription tokens. There are [plenty of JWT libraries](https://jwt.io/) for all languages
+* Prometheus integration and automatic export of stats to Graphite. Now Centrifugo easily integrates in modern monitoring stack – no need to manually export stats
+* Refactored [Javascript](https://github.com/centrifugal/centrifuge-js) (ES6), [Go](https://github.com/centrifugal/centrifuge-go) and [gomobile client](https://github.com/centrifugal/centrifuge-mobile) libraries
+* Simplified HTTP API authentication (no request body signing anymore)
+* GRPC for server API
+* New `presence_stats` API command to get compact presence information - how many clients and unique users in channel
+* Structured logging with coloured output during development
+* Mechanism to automatically merge several Websocket messages into one to reduce syscall amount thus be more performant under heavy load
+* Better recovery algorithm to fix several `recovered` flag false positives
+* Goreleaser for automatic releases to Github
+
+Some things were removed from Centrifugo in v2 release:
+
+* Publishing over Redis queue
+* Admin websocket endpoint
+* Client limited channels
+* `history_drop_inactive` channel option now gone
+* Websocket prepared message support (though this one can be pushed back at some point).
+
+[New documentation](https://centrifugal.github.io/centrifugo/) contains actual information and tips about migration from v1.
+
+As mentioned above new version uses JWT tokens for authentication and private channel authorization. And there is no API request body signing anymore. This all means that using API clients (like `cent`, `phpcent`, `jscent`, `rubycent`, `gocent` before) is not necessary anymore – you can use any JWT library for your language and just send commands from your code – this is just simple JSON objects. Though API libraries still make sense to simplify integration a bit.
+
+At moment there are no native mobile clients. I.e. `centrifuge-ios` and `centrifuge-android` have not been updated to Centrifugo v2 yet.
+
+v1.8.0
+======
+
+No backwards incompatible changes here.
+
+### Features
+
+* package for Ubuntu 18.04
+* add Centrifugo `version` to stats output. Also add rusage stime and utime values to metrics. See [#222](https://github.com/centrifugal/centrifugo/issues/222) for details. Thanks to @Sannis for contributions
+* expose more configuration options to be set over environment variables. See [commit](https://github.com/centrifugal/centrifugo/commit/bf8655914ef94aaa4b2579d943b64fc63e7b9b08) and [related issue](https://github.com/centrifugal/centrifugo/issues/223)
+* more context in debug logs regarding to client connection. See [#201](https://github.com/centrifugal/centrifugo/issues/201)
+* fix deb package upgrade - see [#219](https://github.com/centrifugal/centrifugo/issues/219) for details
+
+### Internal
+
+* using Go 1.10.3 for builds
+
+v1.7.9
+======
+
+No backwards incompatible changes here.
+
+### Fixes
+
+* fix malformed JSON when using empty `info` in connection refresh request - see [#214](https://github.com/centrifugal/centrifugo/issues/214).
+
+### Features
+
+* support ACME http_01 challenge using new `ssl_autocert_http` boolean option. Centrifugo will serve http_01 ACME challenge on port 80. See [#210](https://github.com/centrifugal/centrifugo/issues/210) for more details. 
+
+### Internal
+
+* using Go 1.10.1 for builds
+
+v1.7.8
+======
+
+No backwards incompatible changes here.
+
+### Fixes
+
+* the fix of goroutine leak in 1.7.7 was incomplete - looks like in this release the problem described in [#207](https://github.com/centrifugal/centrifugo/issues/207) gone away.
+
+v1.7.7
+======
+
+No backwards incompatible changes here.
+
+### Fixes
+
+* fix goroutine leak due to deadlock, see [#207](https://github.com/centrifugal/centrifugo/issues/207)
+
+### Features
+
+* possibility to set message `uid` via API request - see [#205](https://github.com/centrifugal/centrifugo/pull/205)
+
+### Internal
+
+* do not send `unsubscribe` messages to client on shutdown - it will unsubscribe automatically on disconnect on client side
+* using Go 1.10 for builds
+
+v1.7.6
+======
+
+No backwards incompatible changes here.
+
+### Fixes
+
+* fix setting config via environment vars - `CENTRIFUGO_` prefix did not work since 1.7.4  
+
+v1.7.5
+======
+
+No backwards incompatible changes here.
+
+The only change is using new version of Go for builds (Go 1.9.2). This will allow to analize performance profiles more easily without having to use binaries. See [this new wiki page](https://github.com/centrifugal/centrifugo/wiki/Investigating-performance-issues) about investigating performance issues.
+
 v1.7.4
 ======
 
@@ -121,7 +270,7 @@ v1.6.2
 ### Fixes
 
 * Fix calling presence remove for every channel (not only channels with presence option enabled).
-* Change subscribing/unsubscribing algorithm to Redis channels - it fixes theretical possibility of wrong subscribing state in Redis.
+* Change subscribing/unsubscribing algorithm to Redis channels - it fixes theoretical possibility of wrong subscribing state in Redis.
 
 ### Internal (for developers/contributors)
 
@@ -153,7 +302,7 @@ As Centrifugo written in Go the only performant way to write plugins is to impor
 
 ### Release highlights:
 
-* New metrics. Several useful new metrics have beed added. For example HTTP API and client request HDR histograms. See updated documentation for complete list. Refactoring resulted in backwards incompatible issue when working with Centrifugo metrics (see below). [Here is a docs chapter](https://fzambia.gitbooks.io/centrifugal/content/server/stats.html) about metrics.
+* New metrics. Several useful new metrics have been added. For example HTTP API and client request HDR histograms. See updated documentation for complete list. Refactoring resulted in backwards incompatible issue when working with Centrifugo metrics (see below). [Here is a docs chapter](https://fzambia.gitbooks.io/centrifugal/content/server/stats.html) about metrics.
 * Optimizations for client side ping, `centrifuge-js` now automatically sends periodic `ping` commands to server. Centrifugo checks client's last activity time and closes stale connections. Builtin SockJS server won't send heartbeat frames to SockJS clients by default. You can restore the old behaviour though: setting `ping: false` on client side and `sockjs_heartbeat_delay: 25` option in Centrifugo configuration. This all means that you better update `centrifuge-js` client to latest version (`1.4.0`). Read [more about pings in docs](https://fzambia.gitbooks.io/centrifugal/content/mixed/ping.html).
 * Experimental websocket compression support for raw websockets - see [#115](https://github.com/centrifugal/centrifugo/issues/115). Read more details how to enable it [in docs](https://fzambia.gitbooks.io/centrifugal/content/mixed/websocket_compression.html). Keep in mind that enabling websocket compression can result in slower Centrifugo performance - depending on your load this can be noticeable.
 * Serious improvements in Redis API queue consuming. There was a bottleneck as we used BLPOP command to get every message from Redis which resulted in extra RTT. Now it's fixed and we can get several API messages from queue at once and process them. The format of Redis API queue changed - see new format description [in docs](https://fzambia.gitbooks.io/centrifugal/content/server/engines.html). Actually it's now the same as single HTTP API command - so we believe you should be comfortable with it. Old format is still supported but **DEPRECATED** and will be removed in next releases.
@@ -307,7 +456,7 @@ Possible backwards incompatibility here (in client side code) - see first point.
 * new channel option `history_drop_inactive` to drastically reduce resource usage (engine memory, messages travelling around) when you use message history. See [#50](https://github.com/centrifugal/centrifugo/issues/50)
 * new Redis engine option `--redis_api_num_shards`. This option sets a number of Redis shard queues Centrifugo will use in addition to standard `centrifugo.api` queue. This allows to increase amount of messages you can publish into Centrifugo and preserve message order in channels. See [#52](https://github.com/centrifugal/centrifugo/issues/52) and [documentation](https://fzambia.gitbooks.io/centrifugal/content/server/engines.html) for more details.
 * fix race condition resulting in client disconnections on high channel subscribe/unsubscribe rate. [#54](https://github.com/centrifugal/centrifugo/issues/54)
-* refactor `last_event_id` related stuff to prevent memory leaks on large amout of channels. [#48](https://github.com/centrifugal/centrifugo/issues/48)
+* refactor `last_event_id` related stuff to prevent memory leaks on large amount of channels. [#48](https://github.com/centrifugal/centrifugo/issues/48)
 * send special disconnect message to client when we don't want it to reconnect to Centrifugo (at moment to client sending malformed message). 
 * pong wait handler for raw websocket to detect non responding clients.
 
