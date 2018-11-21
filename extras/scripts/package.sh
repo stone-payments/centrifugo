@@ -1,5 +1,5 @@
 #!/bin/sh
-# 
+#
 # Debian 7: lsb sysv
 # Debian 8: systemd
 # Ubuntu 14.04: upstart
@@ -44,7 +44,7 @@ TMP_BINARIES_DIR=`mktemp -d`
 ARCH=amd64
 NAME=centrifugo
 LICENSE=MIT
-URL="https://github.com/centrifugal/centrifugo"
+URL="https://github.com/stone-payments/centrifugo"
 MAINTAINER="frvzmb@gmail.com"
 VENDOR=centrifugo
 DESCRIPTION="Real-time messaging server"

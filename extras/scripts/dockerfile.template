@@ -4,7 +4,7 @@ ENV VERSION %version%
 
 ENV CENTRIFUGO_SHA256 %checksum%
 
-ENV DOWNLOAD https://github.com/centrifugal/centrifugo/releases/download/v$VERSION/centrifugo-$VERSION-linux-amd64.zip
+ENV DOWNLOAD https://github.com/stone-payments/centrifugo/releases/download/v$VERSION/centrifugo-$VERSION-linux-amd64.zip
 
 RUN curl -sSL "$DOWNLOAD" -o /tmp/centrifugo.zip && \
     echo "${CENTRIFUGO_SHA256}  /tmp/centrifugo.zip" | sha256sum -c - && \

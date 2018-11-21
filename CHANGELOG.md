@@ -3,7 +3,7 @@ v1.7.4
 
 No backwards incompatible changes here.
 
-This release is centered around internal refactoring to detach node from server - see more details in [#186](https://github.com/centrifugal/centrifugo/pull/186).
+This release is centered around internal refactoring to detach node from server - see more details in [#186](https://github.com/stone-payments/centrifugo/pull/186).
 
 ### Features
 
@@ -37,7 +37,7 @@ No backwards incompatible changes here.
 
 ### Fixes
 
-* fix mass resubscribe after several Redis disconnects in a row - more details in [#163](https://github.com/centrifugal/centrifugo/pull/163)
+* fix mass resubscribe after several Redis disconnects in a row - more details in [#163](https://github.com/stone-payments/centrifugo/pull/163)
 
 ### Features
 
@@ -52,7 +52,7 @@ This release changes two important aspects of Centrifugo. We expect that it will
 ### What's changed
 
 * integration with Gorilla Websocket [PreparedMessage](https://godoc.org/github.com/gorilla/websocket#PreparedMessage) for raw websocket. We expect it to drastically improve websocket compression case - reducing both memory and CPU in large fan-out scenarios. This change does not affect SockJS in any way.
-* `timestamp` field removed from message. See [#147](https://github.com/centrifugal/centrifugo/issues/147) for motivation.
+* `timestamp` field removed from message. See [#147](https://github.com/stone-payments/centrifugo/issues/147) for motivation.
 * Several new memory metrics - `node_memory_heap_sys`, `node_memory_heap_alloc`, `node_memory_stack_inuse`
 
 v1.6.5
@@ -62,8 +62,8 @@ No backwards incompatible changes here.
 
 ### Features
 
-* resolve `history_drop_inactive` option edge case (described in [#50](https://github.com/centrifugal/centrifugo/issues/50))
-* two new options for autocert: `ssl_autocert_force_rsa` and `ssl_autocert_server_name`. See [docs](https://fzambia.gitbooks.io/centrifugal/content/deploy/certificates.html#automatic-certificates) for description 
+* resolve `history_drop_inactive` option edge case (described in [#50](https://github.com/stone-payments/centrifugo/issues/50))
+* two new options for autocert: `ssl_autocert_force_rsa` and `ssl_autocert_server_name`. See [docs](https://fzambia.gitbooks.io/centrifugal/content/deploy/certificates.html#automatic-certificates) for description
 
 ### Fixes
 
@@ -75,7 +75,7 @@ v1.6.4
 
 No backwards incompatible changes here.
 
-We **consider removing** `timestamp` field from message as it's seems useless and never used by Centrifugo users. Applications that need timestamp for some reason can include it into message JSON payload. If you have any objections please look at [issue #147](https://github.com/centrifugal/centrifugo/issues/147) and write your thoughts against removing this field.
+We **consider removing** `timestamp` field from message as it's seems useless and never used by Centrifugo users. Applications that need timestamp for some reason can include it into message JSON payload. If you have any objections please look at [issue #147](https://github.com/stone-payments/centrifugo/issues/147) and write your thoughts against removing this field.
 
 ### Features
 
@@ -84,28 +84,28 @@ We **consider removing** `timestamp` field from message as it's seems useless an
 
 ### Fixes
 
-* fixes crash when using builtin TLS server - see [#145](https://github.com/centrifugal/centrifugo/issues/145)
+* fixes crash when using builtin TLS server - see [#145](https://github.com/stone-payments/centrifugo/issues/145)
 * redirect Go std lib logging into our INFO logger
 
 ### Internal (for developers/contributors)
 
 * Using Go 1.7.5 for builds
-* As soon as Go 1.8 out we will be able to remove `x/net/http2` dependency as standard lib will contain fix for [#145](https://github.com/centrifugal/centrifugo/issues/145)
+* As soon as Go 1.8 out we will be able to remove `x/net/http2` dependency as standard lib will contain fix for [#145](https://github.com/stone-payments/centrifugo/issues/145)
 
 
 v1.6.3
 ======
 
-This release fixes wrong decision made in 1.6.x related to pings. We don't rely on client to server 
-pings to disconnect clients anymore, we also moved back SockJS heartbeat frames - i.e. sending them 
-from server to client every 25 seconds as before (in Centrifugo < 1.6.0). Recent changes in `centrifuge-js` (version 1.4.2) allowed us to not introduce addition reconnects for SockJS polling 
-transports when sending client to server automatic ping. We also updated documentation [chapter about 
+This release fixes wrong decision made in 1.6.x related to pings. We don't rely on client to server
+pings to disconnect clients anymore, we also moved back SockJS heartbeat frames - i.e. sending them
+from server to client every 25 seconds as before (in Centrifugo < 1.6.0). Recent changes in `centrifuge-js` (version 1.4.2) allowed us to not introduce addition reconnects for SockJS polling
+transports when sending client to server automatic ping. We also updated documentation [chapter about
 pings](https://fzambia.gitbooks.io/centrifugal/content/mixed/ping.html) a bit.
 
 ### Fixes
 
-* Random disconnects from Centrifugo when using automatic client to server pings. This is a default 
-behaviour so it affects almost everyone who using Centrifugo 1.6.x, fixes https://github.com/centrifugal/centrifugo/issues/142
+* Random disconnects from Centrifugo when using automatic client to server pings. This is a default
+behaviour so it affects almost everyone who using Centrifugo 1.6.x, fixes https://github.com/stone-payments/centrifugo/issues/142
 * Fix writing headers after headers already written in raw websocket endpoint - this remove annoying log line appearing after client can't upgrade connection to Websocket.
 
 
@@ -134,18 +134,18 @@ This release fixes some configuration problems introduced by v1.6.0 and adds Let
 
 ### Features
 
-* automatic TLS certificates from Let's Encrypt - see [#133](https://github.com/centrifugal/centrifugo/issues/133) and new [dedicated documentation chapter](https://fzambia.gitbooks.io/centrifugal/content/deploy/certificates.html)
+* automatic TLS certificates from Let's Encrypt - see [#133](https://github.com/stone-payments/centrifugo/issues/133) and new [dedicated documentation chapter](https://fzambia.gitbooks.io/centrifugal/content/deploy/certificates.html)
 * websocket compression performance improvement (due to Gorilla Websocket library update)
 
 ### Fixes
 
-* fix SSL/TLS certificates file option names - see [#132](https://github.com/centrifugal/centrifugo/issues/132)
-* fix `web` option that must enable admin socket automatically - see [#136](https://github.com/centrifugal/centrifugo/issues/136)
+* fix SSL/TLS certificates file option names - see [#132](https://github.com/stone-payments/centrifugo/issues/132)
+* fix `web` option that must enable admin socket automatically - see [#136](https://github.com/stone-payments/centrifugo/issues/136)
 
 v1.6.0
 ======
 
-This Centrifugo release is a massive 4-months refactoring of internals with the goal to separate code of different components such as engine, server, metrics, clients to own packages with well-defined API to communicate between them. The code layout changed dramatically. Look at `libcentrifugo` folder [before](https://github.com/centrifugal/centrifugo/tree/v1.5.1/libcentrifugo) and [after](https://github.com/centrifugal/centrifugo/tree/master/libcentrifugo)! Unfortunately there are backwards incompatibilities with previous release - see notes below. The most significant one is changed metrics format in `stats` and `node` API command responses.
+This Centrifugo release is a massive 4-months refactoring of internals with the goal to separate code of different components such as engine, server, metrics, clients to own packages with well-defined API to communicate between them. The code layout changed dramatically. Look at `libcentrifugo` folder [before](https://github.com/stone-payments/centrifugo/tree/v1.5.1/libcentrifugo) and [after](https://github.com/stone-payments/centrifugo/tree/master/libcentrifugo)! Unfortunately there are backwards incompatibilities with previous release - see notes below. The most significant one is changed metrics format in `stats` and `node` API command responses.
 
 With new code layout it's much more simple to create custom engines or servers – each with own metrics and configuration options. **We can not guarantee** though that we will keep `libcentrifugo` packages API stable – **our primary goal is still building Centrifugo standalone server**. So if we find something that must be fixed or improved internally - we will fix/improve it even if this could result in packages API changes.
 
@@ -155,9 +155,9 @@ As Centrifugo written in Go the only performant way to write plugins is to impor
 
 * New metrics. Several useful new metrics have beed added. For example HTTP API and client request HDR histograms. See updated documentation for complete list. Refactoring resulted in backwards incompatible issue when working with Centrifugo metrics (see below). [Here is a docs chapter](https://fzambia.gitbooks.io/centrifugal/content/server/stats.html) about metrics.
 * Optimizations for client side ping, `centrifuge-js` now automatically sends periodic `ping` commands to server. Centrifugo checks client's last activity time and closes stale connections. Builtin SockJS server won't send heartbeat frames to SockJS clients by default. You can restore the old behaviour though: setting `ping: false` on client side and `sockjs_heartbeat_delay: 25` option in Centrifugo configuration. This all means that you better update `centrifuge-js` client to latest version (`1.4.0`). Read [more about pings in docs](https://fzambia.gitbooks.io/centrifugal/content/mixed/ping.html).
-* Experimental websocket compression support for raw websockets - see [#115](https://github.com/centrifugal/centrifugo/issues/115). Read more details how to enable it [in docs](https://fzambia.gitbooks.io/centrifugal/content/mixed/websocket_compression.html). Keep in mind that enabling websocket compression can result in slower Centrifugo performance - depending on your load this can be noticeable.
+* Experimental websocket compression support for raw websockets - see [#115](https://github.com/stone-payments/centrifugo/issues/115). Read more details how to enable it [in docs](https://fzambia.gitbooks.io/centrifugal/content/mixed/websocket_compression.html). Keep in mind that enabling websocket compression can result in slower Centrifugo performance - depending on your load this can be noticeable.
 * Serious improvements in Redis API queue consuming. There was a bottleneck as we used BLPOP command to get every message from Redis which resulted in extra RTT. Now it's fixed and we can get several API messages from queue at once and process them. The format of Redis API queue changed - see new format description [in docs](https://fzambia.gitbooks.io/centrifugal/content/server/engines.html). Actually it's now the same as single HTTP API command - so we believe you should be comfortable with it. Old format is still supported but **DEPRECATED** and will be removed in next releases.
-* Redis sharding support. See more details [in docs](https://fzambia.gitbooks.io/centrifugal/content/server/scaling.html). This resolves some fears about Redis being bottleneck on some large Centrifugo setups. Though we have not heard such stories yet. Redis is single-threaded server, it's insanely fast but if your Redis approaches 100% CPU usage then this sharding feature is what can help your application to scale. 
+* Redis sharding support. See more details [in docs](https://fzambia.gitbooks.io/centrifugal/content/server/scaling.html). This resolves some fears about Redis being bottleneck on some large Centrifugo setups. Though we have not heard such stories yet. Redis is single-threaded server, it's insanely fast but if your Redis approaches 100% CPU usage then this sharding feature is what can help your application to scale.
 * Many minor internal improvements.
 
 ### Fixes:
@@ -190,7 +190,7 @@ As Centrifugo written in Go the only performant way to write plugins is to impor
 v1.5.1
 ======
 
-* Fixes [#94](https://github.com/centrifugal/centrifugo/issues).
+* Fixes [#94](https://github.com/stone-payments/centrifugo/issues).
 
 
 v1.5.0
@@ -226,7 +226,7 @@ v1.4.4
 
 One more fix for v1.4.2 release here
 
-* proper aliasing of `admin_password` and `admin_secret` configuration options. See [#88](https://github.com/centrifugal/centrifugo/issues/88) 
+* proper aliasing of `admin_password` and `admin_secret` configuration options. See [#88](https://github.com/stone-payments/centrifugo/issues/88)
 
 
 v1.4.3
@@ -242,9 +242,9 @@ v1.4.2
 
 * Redis Sentinel support for Redis high availability setup. [Docs](https://fzambia.gitbooks.io/centrifugal/content/deploy/sentinel.html)
 * Redis Engine now uses Redis pipeline for batching publish operations - this results in latency and throughput improvments when publish rate is high.
-* Refactored admin websocket. New option `admin` to enable admin websocket. New option `insecure_admin` to make this endpoint insecure (useful when admin websocket endpoint/port protected by firewall rules). `web_password` option renamed to `admin_password`, `web_secret` option renamed to `admin_secret`, `insecure_web` renamed to `insecure_admin`. **But all old option names still supported to not break things in existing setups**. Also note, that when you run Centrifugo with `web` interface enabled - you also make admin websocket available, because web interface uses it. A little more info [in pull request](https://github.com/centrifugal/centrifugo/pull/83).
+* Refactored admin websocket. New option `admin` to enable admin websocket. New option `insecure_admin` to make this endpoint insecure (useful when admin websocket endpoint/port protected by firewall rules). `web_password` option renamed to `admin_password`, `web_secret` option renamed to `admin_secret`, `insecure_web` renamed to `insecure_admin`. **But all old option names still supported to not break things in existing setups**. Also note, that when you run Centrifugo with `web` interface enabled - you also make admin websocket available, because web interface uses it. A little more info [in pull request](https://github.com/stone-payments/centrifugo/pull/83).
 * Presence Redis Engine methods rewritten to lua to be atomic.
-* Some Redis connection params now can be set over environment variables. See [#81](https://github.com/centrifugal/centrifugo/issues/81)
+* Some Redis connection params now can be set over environment variables. See [#81](https://github.com/stone-payments/centrifugo/issues/81)
 * Fix busy loop when attempting to reconnect to Redis. Fixes large CPU usage while reconnecting.
 * Shorter message `uid`s (22 bytes instead of 36). This was made in order to get some performance improvements.
 
@@ -252,7 +252,7 @@ v1.4.2
 v1.4.1
 ======
 
-* fix server crash on 32-bit architectures (due to [this](https://golang.org/src/sync/atomic/doc.go?s=1207:1656#L36)), see more details in [#74](https://github.com/centrifugal/centrifugo/issues/74).
+* fix server crash on 32-bit architectures (due to [this](https://golang.org/src/sync/atomic/doc.go?s=1207:1656#L36)), see more details in [#74](https://github.com/stone-payments/centrifugo/issues/74).
 * fix compatibility with gocent introduced in v1.4.0
 
 
@@ -262,7 +262,7 @@ v1.4.0
 No backwards incompatible changes here for most usage scenarios, but look carefully on notes below.
 
 * Timers in metrics marked as deprecated. `time_api_mean`, `time_client_mean`, `time_api_max`, `time_client_max` now return 0. This was made because timer's implementation used `Timer` from `go-metrics` library that does not suit very well for Centrifugo needs - so values were mostly useless in practice. So we decided to get rid of them for now to not confuse our users.
-* New `node` API method to get information from single node. That information will contain counters without aggregation over minute interval (what `stats` method does by default). So it can be useful if your metric aggregation system can deal with non-aggregated counters over time period itself. Also note that to use this method you should send API request to each Centrifugo node separately - as this method returns current raw statistics about one node. See [issue](https://github.com/centrifugal/centrifugo/issues/68) for motivation description.
+* New `node` API method to get information from single node. That information will contain counters without aggregation over minute interval (what `stats` method does by default). So it can be useful if your metric aggregation system can deal with non-aggregated counters over time period itself. Also note that to use this method you should send API request to each Centrifugo node separately - as this method returns current raw statistics about one node. See [issue](https://github.com/stone-payments/centrifugo/issues/68) for motivation description.
 * Centrifugo now handles SIGTERM in addition to SIGINT and makes `shutdown` when this signal received. During shutdown Centrifugo returns 503 status code on requests to handlers and closes client connections so clients will reconnect. If shutdown finished without errors in 10 seconds interval then Centrifugo exits with status code 0 (instead of 130 before, this fixes behaviour behind `systemd` after SIGTERM received).
 * Maximum limit in bytes for client request was added. It can be changed using `client_request_max_size` config option. By default 65536 bytes (64kb).
 * Packages for 64-bit Debian, Centos and Ubuntu [hosted on packagecloud.io](https://packagecloud.io/FZambia/centrifugo). If you are using Debian 7 or 8, Centos 6 or 7, Ubuntu 14.04 or Ubuntu 16.04 - you can find packages for those linux distribution following to packagecloud. Packages will be created every time we release new Centrifugo version.
@@ -301,14 +301,14 @@ v1.3.0
 Possible backwards incompatibility here (in client side code) - see first point.
 
 * omit fields in message JSON if field contains empty value: `client` on top level, `info` on top level, `default_info` in `info` object, `channel_info` in `info` object. This also affects top level data in join/leave messages and presence data – i.e. `default_info` and `channel_info` keys not included in JSON when empty. This can require adapting your client side code a bit if you rely on these keys but for most cases this should not affect your application. But we strongly suggest to test before updating. This change allows to reduce message size. See migration notes below for more details.
-* new option `--admin_port` to bind admin websocket and web interface to separate port. [#44](https://github.com/centrifugal/centrifugo/issues/44)
-* new option `--api_port` to bind API endpoint to separate port. [#44](https://github.com/centrifugal/centrifugo/issues/44)
-* new option `--insecure_web` to use web interface without setting `web_password` and `web_secret` (for use in development or when you protected web interface by firewall rules). [#44](https://github.com/centrifugal/centrifugo/issues/44)
-* new channel option `history_drop_inactive` to drastically reduce resource usage (engine memory, messages travelling around) when you use message history. See [#50](https://github.com/centrifugal/centrifugo/issues/50)
-* new Redis engine option `--redis_api_num_shards`. This option sets a number of Redis shard queues Centrifugo will use in addition to standard `centrifugo.api` queue. This allows to increase amount of messages you can publish into Centrifugo and preserve message order in channels. See [#52](https://github.com/centrifugal/centrifugo/issues/52) and [documentation](https://fzambia.gitbooks.io/centrifugal/content/server/engines.html) for more details.
-* fix race condition resulting in client disconnections on high channel subscribe/unsubscribe rate. [#54](https://github.com/centrifugal/centrifugo/issues/54)
-* refactor `last_event_id` related stuff to prevent memory leaks on large amout of channels. [#48](https://github.com/centrifugal/centrifugo/issues/48)
-* send special disconnect message to client when we don't want it to reconnect to Centrifugo (at moment to client sending malformed message). 
+* new option `--admin_port` to bind admin websocket and web interface to separate port. [#44](https://github.com/stone-payments/centrifugo/issues/44)
+* new option `--api_port` to bind API endpoint to separate port. [#44](https://github.com/stone-payments/centrifugo/issues/44)
+* new option `--insecure_web` to use web interface without setting `web_password` and `web_secret` (for use in development or when you protected web interface by firewall rules). [#44](https://github.com/stone-payments/centrifugo/issues/44)
+* new channel option `history_drop_inactive` to drastically reduce resource usage (engine memory, messages travelling around) when you use message history. See [#50](https://github.com/stone-payments/centrifugo/issues/50)
+* new Redis engine option `--redis_api_num_shards`. This option sets a number of Redis shard queues Centrifugo will use in addition to standard `centrifugo.api` queue. This allows to increase amount of messages you can publish into Centrifugo and preserve message order in channels. See [#52](https://github.com/stone-payments/centrifugo/issues/52) and [documentation](https://fzambia.gitbooks.io/centrifugal/content/server/engines.html) for more details.
+* fix race condition resulting in client disconnections on high channel subscribe/unsubscribe rate. [#54](https://github.com/stone-payments/centrifugo/issues/54)
+* refactor `last_event_id` related stuff to prevent memory leaks on large amout of channels. [#48](https://github.com/stone-payments/centrifugo/issues/48)
+* send special disconnect message to client when we don't want it to reconnect to Centrifugo (at moment to client sending malformed message).
 * pong wait handler for raw websocket to detect non responding clients.
 
 Also it's recommended to update javascipt client to latest version as it has some useful changes (see its changelog).
@@ -379,8 +379,8 @@ v1.2.0
 
 No backwards incompatible changes here.
 
-* New `recover` option to automatically recover missed messages based on last message ID. See [pull request](https://github.com/centrifugal/centrifugo/pull/42) and [chapter in docs](https://fzambia.gitbooks.io/centrifugal/content/server/recover.html) for more information. Note that you need centrifuge-js >= v1.1.0 to use new `recover` option
-* New `broadcast` API method to send the same data into many channels. See [issue](https://github.com/centrifugal/centrifugo/issues/41) and updated [API description in docs](https://fzambia.gitbooks.io/centrifugal/content/server/api.html)
+* New `recover` option to automatically recover missed messages based on last message ID. See [pull request](https://github.com/stone-payments/centrifugo/pull/42) and [chapter in docs](https://fzambia.gitbooks.io/centrifugal/content/server/recover.html) for more information. Note that you need centrifuge-js >= v1.1.0 to use new `recover` option
+* New `broadcast` API method to send the same data into many channels. See [issue](https://github.com/stone-payments/centrifugo/issues/41) and updated [API description in docs](https://fzambia.gitbooks.io/centrifugal/content/server/api.html)
 * Dockerfile now checks SHA256 sum when downloading release zip archive.
 * release built using Go 1.5.2
 
@@ -401,7 +401,7 @@ v1.0.0
 A bad and a good news here. Let's start with a good one. Centrifugo is still real-time messaging server and just got v1.0 release. The bad – it is not fully backwards compatible with previous versions. Actually there are three changes that ruin compatibility. If you don't use web interface and private channels then there is only one change. But it affects all stack - Centrifugo itself, client library and API library.
 
 Starting from this release Centrifugo won't support multiple registered projects. It will work with only one application. You don't need to use `project key` anymore. Changes resulted in simplified
-configuration file format. The only required option is `secret` now. See updated documentation 
+configuration file format. The only required option is `secret` now. See updated documentation
 to see how to set `secret`. Also changes opened a way for exporting Centrifugo node statistics via HTTP API `stats` command.
 
 As this is v1 release we'll try to be more careful about backwards compatibility in future. But as we are trying to make a good software required changes will be done if needed.
@@ -491,21 +491,21 @@ v0.2.1
 v0.2.0
 ======
 
-* add optional `client` field to publish API requests. `client` will be added on top level of 
-	published message. This means that there is now a way to include `client` connection ID to 
-	publish API request to Centrifugo (to get client connection ID call `centrifuge.getClientId()` in 
+* add optional `client` field to publish API requests. `client` will be added on top level of
+	published message. This means that there is now a way to include `client` connection ID to
+	publish API request to Centrifugo (to get client connection ID call `centrifuge.getClientId()` in
 	javascript). This client will be included in a message as I said above and you can compare
-	current client ID in javascript with `client` ID in message and if both values equal then in 
-	some situations you will wish to drop this message as it was published by this client and 
-	probably already processed (via optimistic optimization or after successful AJAX call to web 
+	current client ID in javascript with `client` ID in message and if both values equal then in
+	some situations you will wish to drop this message as it was published by this client and
+	probably already processed (via optimistic optimization or after successful AJAX call to web
 	application backend initiated this message).
 * client limited channels - like user limited channels but for client. Only client with ID used in
 	channel name can subscribe on such channel. Default client channel boundary is `&`. If you have
 	channels with `&` in its name - then you must adapt your channel names to not use `&` or run Centrifugo with another client channel boundary using `client_channel_boundary` configuration
 	file option.
-* fix for presence and history client calls - check subscription on channel before returning result 
+* fix for presence and history client calls - check subscription on channel before returning result
 	or return Permission Denied error if not subscribed.
-* handle interrupts - unsubscribe clients from all channels. Many thanks again to Mr Klaus Post.	
+* handle interrupts - unsubscribe clients from all channels. Many thanks again to Mr Klaus Post.
 * code refactoring, detach libcentrifugo real-time core from Centrifugo service.
 
 v0.1.1

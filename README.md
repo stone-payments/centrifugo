@@ -8,12 +8,12 @@ Centrifugo runs as separate service and keeps persistent Websocket or SockJS con
 
 ### How to install
 
-Releases available as single executable files – just [download latest release](https://github.com/centrifugal/centrifugo/releases) for your platform, unpack and run.
+Releases available as single executable files – just [download latest release](https://github.com/stone-payments/centrifugo/releases) for your platform, unpack and run.
 
 If you are on MacOS:
 
 ```
-brew tap centrifugal/centrifugo https://github.com/centrifugal/centrifugo
+brew tap centrifugal/centrifugo https://github.com/stone-payments/centrifugo
 brew install centrifugo
 ```
 
@@ -25,7 +25,7 @@ There are also [packages for 64-bit Debian, Centos and Ubuntu](https://packagecl
 
 Try our [demo instance](https://centrifugo.herokuapp.com/) on Heroku (password `demo`). Or deploy your own Centrifugo instance in one click:
 
-[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy?template=https://github.com/centrifugal/centrifugo)
+[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy?template=https://github.com/stone-payments/centrifugo)
 
 ### Highlights
 

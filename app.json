@@ -1,9 +1,16 @@
 {
   "name": "Centrifugo",
   "description": "Real-time messaging server for web applications",
-  "repository": "https://github.com/centrifugal/centrifugo",
+  "repository": "https://github.com/stone-payments/centrifugo",
   "logo": "https://avatars1.githubusercontent.com/u/6236442?v=3&s=200",
-  "keywords": ["go", "pubsub", "websocket", "real-time", "sockjs", "redis"],
+  "keywords": [
+    "go",
+    "pubsub",
+    "websocket",
+    "real-time",
+    "sockjs",
+    "redis"
+  ],
   "env": {
     "GO_LINKER_SYMBOL": "main.VERSION",
     "GO_LINKER_VALUE": "dev",

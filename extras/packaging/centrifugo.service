@@ -1,6 +1,6 @@
 [Unit]
 Description=Centrifugo real-time messaging server
-Documentation=https://github.com/centrifugal/centrifugo
+Documentation=https://github.com/stone-payments/centrifugo
 # start once the network and logging subsystems available
 After=network.target syslog.target
 

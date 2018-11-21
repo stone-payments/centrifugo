@@ -9,7 +9,7 @@ Version:   %{version}
 Release:   %{release}
 Summary:   Real-time messaging server
 License:   MIT
-URL:       https://github.com/centrifugal/centrifugo
+URL:       https://github.com/stone-payments/centrifugo
 Group:     Apps/sys
 Buildroot: %{_tmppath}/%{name}-%{version}-%{release}-%(%{__id_u} -n)
 Packager:  Alexandr Emelin <frvzmb@gmail.com>

@@ -1,7 +1,7 @@
 class Centrifugo < Formula
   desc "Centrifugo"
-  homepage "https://github.com/centrifugal/centrifugo"
-  url "https://github.com/centrifugal/centrifugo/releases/download/v%version%/centrifugo-%version%-darwin-amd64.zip"
+  homepage "https://github.com/stone-payments/centrifugo"
+  url "https://github.com/stone-payments/centrifugo/releases/download/v%version%/centrifugo-%version%-darwin-amd64.zip"
   sha256 "%checksum%"
 
   def install

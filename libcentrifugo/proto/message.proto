@@ -1,7 +1,7 @@
 syntax = "proto3";
 // Example how to update gogoprotobuf generated code (Mac OS).
 // go get -u github.com/gogo/protobuf/...
-// Download release of protobuf from: https://github.com/google/protobuf/releases 
+// Download release of protobuf from: https://github.com/google/protobuf/releases
 // Install gogofaster program:
 // go get github.com/gogo/protobuf/protoc-gen-gogofaster
 // Use binary from unpacked release, for example:
@@ -19,14 +19,14 @@ option (gogoproto.testgen_all) = true;
 message ClientInfo {
   string User = 1 [(gogoproto.jsontag) = "user"];
   string Client = 2 [(gogoproto.jsontag) = "client"];
-  bytes DefaultInfo = 3 [(gogoproto.customtype) = "github.com/centrifugal/centrifugo/libcentrifugo/raw.Raw", (gogoproto.jsontag) = "default_info,omitempty", (gogoproto.nullable) = false];
-  bytes ChannelInfo = 4 [(gogoproto.customtype) = "github.com/centrifugal/centrifugo/libcentrifugo/raw.Raw", (gogoproto.jsontag) = "channel_info,omitempty", (gogoproto.nullable) = false];
+  bytes DefaultInfo = 3 [(gogoproto.customtype) = "github.com/stone-payments/centrifugo/libcentrifugo/raw.Raw", (gogoproto.jsontag) = "default_info,omitempty", (gogoproto.nullable) = false];
+  bytes ChannelInfo = 4 [(gogoproto.customtype) = "github.com/stone-payments/centrifugo/libcentrifugo/raw.Raw", (gogoproto.jsontag) = "channel_info,omitempty", (gogoproto.nullable) = false];
 }
 
 message Message {
   string UID = 1 [(gogoproto.jsontag) = "uid"];
   string Channel = 3 [(gogoproto.jsontag) = "channel"];
-  bytes Data = 4 [(gogoproto.customtype) = "github.com/centrifugal/centrifugo/libcentrifugo/raw.Raw", (gogoproto.jsontag) = "data", (gogoproto.nullable) = false];
+  bytes Data = 4 [(gogoproto.customtype) = "github.com/stone-payments/centrifugo/libcentrifugo/raw.Raw", (gogoproto.jsontag) = "data", (gogoproto.nullable) = false];
   string Client = 5 [(gogoproto.jsontag) = "client,omitempty"];
   ClientInfo Info = 6 [(gogoproto.jsontag) = "info,omitempty"];
 }
@@ -46,11 +46,11 @@ message ControlMessage {
   // this control command.
   string UID = 1 [(gogoproto.jsontag) = "uid"];
   string Method = 2 [(gogoproto.jsontag) = "method"];
-  bytes Params = 3 [(gogoproto.customtype) = "github.com/centrifugal/centrifugo/libcentrifugo/raw.Raw", (gogoproto.jsontag) = "params", (gogoproto.nullable) = false];
+  bytes Params = 3 [(gogoproto.customtype) = "github.com/stone-payments/centrifugo/libcentrifugo/raw.Raw", (gogoproto.jsontag) = "params", (gogoproto.nullable) = false];
 }
 
 message AdminMessage {
   string UID = 1 [(gogoproto.jsontag) = "uid"];
   string Method = 2 [(gogoproto.jsontag) = "method"];
-  bytes Params = 3 [(gogoproto.customtype) = "github.com/centrifugal/centrifugo/libcentrifugo/raw.Raw", (gogoproto.jsontag) = "params", (gogoproto.nullable) = false];
+  bytes Params = 3 [(gogoproto.customtype) = "github.com/stone-payments/centrifugo/libcentrifugo/raw.Raw", (gogoproto.jsontag) = "params", (gogoproto.nullable) = false];
 }
