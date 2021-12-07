@@ -1,8 +1,8 @@
 {
-  "secret": "secret",
+  "secret": "$(CentrifugoWSSecret)",
   "web": true,
-  "admin_password": "password",
-  "admin_secret": "secret",
+  "admin_password": "$(CentrifugoWSAdminPassword)",
+  "admin_secret": "$(CentrifugoWSAdminSecret)",
   "namespaces": [
     {
       "name": "public",
