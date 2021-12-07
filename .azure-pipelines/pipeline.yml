@@ -27,6 +27,7 @@ variables:
   DockerImageName: "$(GCP.ProjectID)/centrifugo-ws"
   celebro_prd: szfd4z9qezaohvppen41g7trpqosom
   GolangVersion: 1.12
+  GO111MODULE: 'on'
 
 jobs:
   - job: BuildBinary
@@ -37,8 +38,6 @@ jobs:
         version: $(GolangVersion)
         goPath: '$(Agent.WorkFolder)'
         goBin: '$(Agent.WorkFolder)'
-      env:
-        GO111MODULE: "on"
 
     - bash: |
         git config --global url."https://github.com".insteadOf git://github.com
