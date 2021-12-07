@@ -1,0 +1,84 @@
+replicaCount: 3
+
+nameOverride: centrifugo-ws
+
+image:
+  repository: #{IMAGE_REPOSITORY}#
+
+deploymentStrategy:
+  type: RollingUpdate
+  rollingUpdate:
+    maxUnavailable: 25%
+
+livenessProbe:
+  failureThreshold: 3
+  initialDelaySeconds: 30
+  periodSeconds: 60
+  successThreshold: 1
+  timeoutSeconds: 1
+  port: 8888
+readinessProbe:
+  failureThreshold: 3
+  initialDelaySeconds: 10
+  periodSeconds: 10
+  successThreshold: 1
+  timeoutSeconds: 1
+  port: 8888
+
+service:
+  type: ClusterIP
+  port: 8888
+
+healthCheckPath: "/"
+
+environments:
+
+serviceAccount:
+  create: false
+  annotations: {}
+  name: #{SERVICE_ACCOUNT}#
+
+ingress:
+  externalIngress:
+    enabled: true
+    pathType: ImplementationSpecific
+    annotations:
+      kubernetes.io/ingress.class: #{INGRESS_CLASS}#
+      kubernetes.io/tls-acme: "true"
+      cert-manager.io/cluster-issuer: "letsencrypt"
+    hosts:
+      - host: #{INGRESS_HOST}#
+        paths:
+          - /
+    tls:
+      - hosts:
+          - #{INGRESS_HOST}#
+        secretName: centrifugo-ws-tls
+
+  internalIngress:
+    enabled: false
+    pathType: ImplementationSpecific
+
+resources:
+  requests:
+    memory: "128Mi"
+    cpu: "250m"
+  limits:
+    memory: "256Mi"
+    cpu: "500m"
+
+autoscaling:
+  enabled: true
+  minReplicas: #{MIN_REPLICAS}#
+  maxReplicas: #{MAX_REPLICAS}#
+  targetCPUUtilizationPercentage: 80
+  targetMemoryUtilizationPercentage: 80
+
+minAvailable: 60%
+nodeSelector:
+  cloud.google.com/gke-nodepool: "inside-pool"
+tolerations:
+  - key: "node-pool"
+    operator: "Equal"
+    value: "inside"
+    effect: "NoSchedule"
