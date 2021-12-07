@@ -1,0 +1,131 @@
+name: $(SourceBranchName)_$(Date:yyyyMMdd)$(Rev:.r)
+trigger:
+  branches:
+    include:
+      - master
+      - develop
+  paths:
+    include:
+      - config.json
+
+pr:
+  branches:
+    include:
+      - master
+      - develop
+  paths:
+    include:
+      - config.json
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  Github.Project.Path: 'github.com/stone-payments/centrifugo'
+  GCP.ProjectID: si26ef9dii9zscrxrecql6kl8eguw2 # front-common-non-prod
+  GCP.ContainerRegistry: 'front-common-non-prod-front'
+  DockerImageName: "$(GCP.ProjectID)/centrifugo-ws"
+  celebro_prd: szfd4z9qezaohvppen41g7trpqosom
+  GolangVersion: 1.12
+
+jobs:
+  - job: TestAndBuildBinary
+    steps:
+    - task: GoTool@0
+      displayName: 'Use Go $(GolangVersion)'
+      inputs:
+        version: $(GolangVersion)
+        goPath: '$(Agent.WorkFolder)'
+        goBin: '$(Agent.WorkFolder)'
+
+    - bash: |
+        git config --global url."https://github.com".insteadOf git://github.com
+        git config --global url."https://github.com/".insteadOf git@github.com:
+        git config --global url."https://".insteadOf git://
+        git config --global credential.helper store
+        cd ~
+        echo "https://$(Github.Token):x-oauth-basic@github.com" > .git-credentials
+      displayName: 'Set .git-credentials'
+
+    - bash: |
+        export GO111MODULE="on"
+        echo $GOPATH
+        echo $PWD
+        ls -la
+
+        rm -rf $(Agent.WorkFolder)/src/$(Github.Project.Path)
+        mkdir -p $(Agent.WorkFolder)/src/$(Github.Project.Path)
+
+        ls -la  $(Agent.WorkFolder)/src/$(Github.Project.Path)
+
+        cp -r . $(Agent.WorkFolder)/src/$(Github.Project.Path)
+        ls -la  $(Agent.WorkFolder)/src/$(Github.Project.Path)
+
+        echo $(Agent.WorkFolder)/src/$(Github.Project.Path)/
+      displayName: 'Move files to GOPATH'
+
+    - bash: 'go mod init'
+      workingDirectory: '$(Agent.WorkFolder)/src/$(Github.Project.Path)/'
+      displayName: 'go mod init'
+
+    - bash: 'go mod download'
+      workingDirectory: '$(Agent.WorkFolder)/src/$(Github.Project.Path)/'
+      displayName: 'go mod vendor'
+
+    - task: Go@0
+      displayName: 'go build'
+      inputs:
+        command: build
+        arguments: '-mod vendor -o centrifugo'
+        workingDirectory: '$(Agent.WorkFolder)/src/$(Github.Project.Path)/'
+
+    - task: retrieve-google-secret-manager@0
+      displayName: Get Secret Keys
+      inputs:
+        project: '$(celebro_prod)'
+
+    - task: qetza.replacetokens.replacetokens-task.replacetokens@3
+      displayName: 'Replace Centrifugo Config Secrets'
+      inputs:
+        tokenPrefix: '$('
+        tokenSuffix: ')'
+        targetFiles: 'config.json'
+        workingDirectory: '$(Agent.WorkFolder)/src/$(Github.Project.Path)/'
+
+    - bash: |
+        cd $(Agent.WorkFolder)/src/$(Github.Project.Path)/
+        mkdir artifacts
+        mv -t artifacts/ centrifugo config.json helm-values.yaml
+      workingDirectory: '$(Agent.WorkFolder)/src/$(Github.Project.Path)/'
+      displayName: 'mv files'
+
+    - task: PublishBuildArtifacts@1
+      displayName: 'Publish artifact'
+      inputs:
+        PathtoPublish: '$(Agent.WorkFolder)/src/$(Github.Project.Path)/artifacts'
+        ArtifactName: build
+
+  - job: DockerBuild
+    steps:
+    - task: Docker@2
+      displayName: Login to GCR
+      inputs:
+        containerRegistry: 'front-common-non-prod-front'
+        command: 'login'
+
+    - task: Docker@2
+      displayName: "Build image"
+      inputs:
+        containerRegistry: 'front-common-non-prod-front'
+        repository: '$(DockerImageName)'
+        command: 'build'
+        Dockerfile: '**/Dockerfile'
+        arguments: --build-arg GITHUB_TOKEN=$(Github.Token)
+
+    - task: Docker@2
+      displayName: "Push image"
+      inputs:
+        containerRegistry: 'front-common-non-prod-front'
+        tags: $(Build.BuildId)
+        repository: '$(DockerImageName)'
+        command: 'push'
