@@ -37,6 +37,8 @@ jobs:
         version: $(GolangVersion)
         goPath: '$(Agent.WorkFolder)'
         goBin: '$(Agent.WorkFolder)'
+      env:
+        GO111MODULE: "on"
 
     - bash: |
         git config --global url."https://github.com".insteadOf git://github.com
@@ -48,7 +50,6 @@ jobs:
       displayName: 'Set .git-credentials'
 
     - bash: |
-        export GO111MODULE="on"
         echo $GOPATH
         echo $PWD
         ls -la
