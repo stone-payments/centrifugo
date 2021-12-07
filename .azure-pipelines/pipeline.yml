@@ -29,7 +29,7 @@ variables:
   GolangVersion: 1.12
 
 jobs:
-  - job: TestAndBuildBinary
+  - job: BuildBinary
     steps:
     - task: GoTool@0
       displayName: 'Use Go $(GolangVersion)'
