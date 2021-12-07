@@ -30,6 +30,7 @@ variables:
 
 jobs:
   - job: BuildBinary
+    pool: "front-gcp-functions-non-prod-agents"
     steps:
     - task: GoTool@0
       displayName: 'Use Go $(GolangVersion)'
