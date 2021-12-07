@@ -25,7 +25,6 @@ variables:
   GCP.ProjectID: si26ef9dii9zscrxrecql6kl8eguw2 # front-common-non-prod
   GCP.ContainerRegistry: 'front-common-non-prod-front'
   DockerImageName: "$(GCP.ProjectID)/centrifugo-ws"
-  celebro_prd: szfd4z9qezaohvppen41g7trpqosom
   GolangVersion: 1.12
   GO111MODULE: 'on'
 
@@ -82,7 +81,7 @@ jobs:
     - task: retrieve-google-secret-manager@0
       displayName: Get Secret Keys
       inputs:
-        project: '$(celebro_prod)'
+        project: '$(GCP.ProjectID)'
 
     - task: qetza.replacetokens.replacetokens-task.replacetokens@3
       displayName: 'Replace Centrifugo Config Secrets'
