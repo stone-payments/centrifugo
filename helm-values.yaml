@@ -1,7 +1,5 @@
 replicaCount: 3
 
-nameOverride: centrifugo-ws
-
 image:
   repository: #{IMAGE_REPOSITORY}#
 
