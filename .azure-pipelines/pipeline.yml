@@ -31,7 +31,7 @@ jobs:
     pool: "front-gcp-functions-non-prod-agents"
     steps:
     - task: shellexec@0
-      displayName: 'shellexec '
+      displayName: 'Get centrifugo binary'
       inputs:
         code: wget https://github.com/centrifugal/centrifugo/releases/download/v1.7.4/centrifugo-1.7.4-linux-amd64.zip
     - task: ExtractFiles@1
@@ -60,6 +60,7 @@ jobs:
 
     - bash: |
         cd $(System.DefaultWorkingDirectory)/
+        ls -la
         mkdir artifacts
         mv -t artifacts/ centrifugo config.json helm-values.yaml
       workingDirectory: '$(System.DefaultWorkingDirectory)/'
