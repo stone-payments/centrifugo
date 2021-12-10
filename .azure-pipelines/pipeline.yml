@@ -32,6 +32,20 @@ jobs:
   - job: BuildBinary
     pool: "front-gcp-functions-non-prod-agents"
     steps:
+    - task: shellexec@0
+      displayName: 'shellexec '
+      inputs:
+        code: wget https://github.com/centrifugal/centrifugo/releases/download/v1.7.4/centrifugo-1.7.4-linux-amd64.zip
+    - task: ExtractFiles@1
+      displayName: 'Extract files '
+      inputs:
+        archiveFilePatterns: centrifugo-1.7.4-linux-amd64.zip
+        destinationFolder: $(System.DefaultWorkingDirectory)
+        cleanDestinationFolder: false
+    - task: shellexec@0
+      displayName: Rename and move file
+      inputs:
+        code: mv centrifugo-1.7.4-linux-amd64/centrifugo tsuru-app
     - task: GoTool@0
       displayName: 'Use Go $(GolangVersion)'
       inputs:
