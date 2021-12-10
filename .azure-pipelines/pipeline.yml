@@ -50,19 +50,11 @@ jobs:
       inputs:
         project: '$(GCP.ProjectID)'
 
-    - task: qetza.replacetokens.replacetokens-task.replacetokens@3
-      displayName: 'Replace Centrifugo Config Secrets'
-      inputs:
-        tokenPrefix: '$('
-        tokenSuffix: ')'
-        targetFiles: 'config.json'
-        workingDirectory: '$(System.DefaultWorkingDirectory)/'
-
     - bash: |
         cd $(System.DefaultWorkingDirectory)/
         ls -la
         mkdir artifacts
-        mv -t artifacts/ centrifugo config.json helm-values.yaml
+        mv -t artifacts/ helm-values.yaml
       workingDirectory: '$(System.DefaultWorkingDirectory)/'
       displayName: 'mv files'
 

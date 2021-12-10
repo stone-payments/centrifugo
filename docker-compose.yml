@@ -4,9 +4,6 @@ services:
   centrifugo:
     build:
       context: .
-    volumes:
-      - ./config.json:/centrifugo/config.json
-    command: centrifugo -c config.json
     ports:
       - 8888:8888
     ulimits:

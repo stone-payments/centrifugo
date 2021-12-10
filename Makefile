@@ -41,3 +41,11 @@ packagecloud-rpm:
 	# PACKAGECLOUD_TOKEN env must be set
 	package_cloud push FZambia/centrifugo/el/7 PACKAGES/*.rpm
 	package_cloud push FZambia/centrifugo/el/6 PACKAGES/*.rpm
+
+config:
+	./config.sh
+
+centrifugo:
+	centrifugo
+
+runcentrifugo: config centrifugo

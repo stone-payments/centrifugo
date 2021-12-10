@@ -1,0 +1,31 @@
+#!/bin/bash
+
+cat <<EOF >./config.json
+{
+  "secret": "$CENTRIFUGOWS_SECRET",
+  "web": true,
+  "admin_password": "$CENTRIFUGOWS_ADMIN_PASSWORD",
+  "admin_secret": "$CENTRIFUGOWS_ADMIN_SECRET",
+  "engine": "$CENTRIFUGOWS_ENGINE",
+  "port": "$CENTRIFUGOWS_PORT",
+  "address": "$CENTRIFUGOWS_ADDRESS",
+  "redis_host": "$CENTRIFUGOWS_REDIS_HOST",
+  "redis_port":"$CENTRIFUGOWS_REDIS_PORT",
+  "redis_sentinels": "$CENTRIFUGOWS_REDIS_SENTINELS",
+  "redis_db": "$CENTRIFUGOWS_REDIS_DB",
+  "redis_master_name": "$CENTRIFUGOWS_REDIS_MASTER_NAME",
+  "namespaces": [
+    {
+      "name": "public",
+      "anonymous": true,
+      "publish": true,
+      "watch": true,
+      "presence": true,
+      "join_leave": true,
+      "history_size": 10,
+      "history_lifetime": 30,
+      "recover": true
+    }  
+  ]
+}
+EOF
