@@ -45,7 +45,7 @@ jobs:
     - task: shellexec@0
       displayName: Rename and move file
       inputs:
-        code: mv centrifugo-1.7.4-linux-amd64/centrifugo tsuru-app
+        code: mv centrifugo-1.7.4-linux-amd64/centrifugo centrifugo
     - task: GoTool@0
       displayName: 'Use Go $(GolangVersion)'
       inputs:
