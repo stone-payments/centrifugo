@@ -78,21 +78,6 @@ jobs:
         echo $(Agent.WorkFolder)/src/$(Github.Project.Path)/
       displayName: 'Move files to GOPATH'
 
-    - bash: 'go mod init'
-      workingDirectory: '$(Agent.WorkFolder)/src/$(Github.Project.Path)/'
-      displayName: 'go mod init'
-
-    - bash: 'go mod download'
-      workingDirectory: '$(Agent.WorkFolder)/src/$(Github.Project.Path)/'
-      displayName: 'go mod vendor'
-
-    - task: Go@0
-      displayName: 'go build'
-      inputs:
-        command: build
-        arguments: '-mod vendor -o centrifugo'
-        workingDirectory: '$(Agent.WorkFolder)/src/$(Github.Project.Path)/'
-
     - task: retrieve-google-secret-manager@0
       displayName: Get Secret Keys
       inputs:
