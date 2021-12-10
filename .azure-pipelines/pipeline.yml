@@ -25,8 +25,6 @@ variables:
   GCP.ProjectID: si26ef9dii9zscrxrecql6kl8eguw2 # front-common-non-prod
   GCP.ContainerRegistry: 'front-common-non-prod-front'
   DockerImageName: "$(GCP.ProjectID)/centrifugo-ws"
-  GolangVersion: 1.12
-  GO111MODULE: 'on'
 
 jobs:
   - job: BuildBinary
@@ -46,37 +44,6 @@ jobs:
       displayName: Rename and move file
       inputs:
         code: mv centrifugo-1.7.4-linux-amd64/centrifugo centrifugo
-    - task: GoTool@0
-      displayName: 'Use Go $(GolangVersion)'
-      inputs:
-        version: $(GolangVersion)
-        goPath: '$(Agent.WorkFolder)'
-        goBin: '$(Agent.WorkFolder)'
-
-    - bash: |
-        git config --global url."https://github.com".insteadOf git://github.com
-        git config --global url."https://github.com/".insteadOf git@github.com:
-        git config --global url."https://".insteadOf git://
-        git config --global credential.helper store
-        cd ~
-        echo "https://$(Github.Token):x-oauth-basic@github.com" > .git-credentials
-      displayName: 'Set .git-credentials'
-
-    - bash: |
-        echo $GOPATH
-        echo $PWD
-        ls -la
-
-        rm -rf $(Agent.WorkFolder)/src/$(Github.Project.Path)
-        mkdir -p $(Agent.WorkFolder)/src/$(Github.Project.Path)
-
-        ls -la  $(Agent.WorkFolder)/src/$(Github.Project.Path)
-
-        cp -r . $(Agent.WorkFolder)/src/$(Github.Project.Path)
-        ls -la  $(Agent.WorkFolder)/src/$(Github.Project.Path)
-
-        echo $(Agent.WorkFolder)/src/$(Github.Project.Path)/
-      displayName: 'Move files to GOPATH'
 
     - task: retrieve-google-secret-manager@0
       displayName: Get Secret Keys
@@ -89,19 +56,19 @@ jobs:
         tokenPrefix: '$('
         tokenSuffix: ')'
         targetFiles: 'config.json'
-        workingDirectory: '$(Agent.WorkFolder)/src/$(Github.Project.Path)/'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/'
 
     - bash: |
-        cd $(Agent.WorkFolder)/src/$(Github.Project.Path)/
+        cd $(System.DefaultWorkingDirectory)/
         mkdir artifacts
         mv -t artifacts/ centrifugo config.json helm-values.yaml
-      workingDirectory: '$(Agent.WorkFolder)/src/$(Github.Project.Path)/'
+      workingDirectory: '$(System.DefaultWorkingDirectory)/'
       displayName: 'mv files'
 
     - task: PublishBuildArtifacts@1
       displayName: 'Publish artifact'
       inputs:
-        PathtoPublish: '$(Agent.WorkFolder)/src/$(Github.Project.Path)/artifacts'
+        PathtoPublish: '$(System.DefaultWorkingDirectory)/artifacts'
         ArtifactName: build
 
   - job: DockerBuild
@@ -119,7 +86,6 @@ jobs:
         repository: '$(DockerImageName)'
         command: 'build'
         Dockerfile: '**/Dockerfile'
-        arguments: --build-arg GITHUB_TOKEN=$(Github.Token)
 
     - task: Docker@2
       displayName: "Push image"
