@@ -6,7 +6,6 @@ cat <<EOF >./config.json
   "web": true,
   "admin_password": "$ADMIN_PASSWORD",
   "admin_secret": "$ADMIN_SECRET",
-  "engine": "$ENGINE",
   "port": "$PORT",
   "address": "$ADDRESS",
   "redis_host": "$REDIS_HOST",
