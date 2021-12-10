@@ -24,9 +24,13 @@ VOLUME ["/centrifugo", "/var/log/centrifugo"]
 
 WORKDIR /centrifugo
 
+COPY /config.json ./
+
+RUN ls -la
+
 USER centrifugo
 
 CMD ["centrifugo"]
 
-EXPOSE 8000
+EXPOSE 8888
 

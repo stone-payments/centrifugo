@@ -3,6 +3,14 @@
   "web": true,
   "admin_password": "$(CentrifugoWSAdminPassword)",
   "admin_secret": "$(CentrifugoWSAdminSecret)",
+  "engine": "$(CentrifugoWSEngine)",
+  "port": "$(CentrifugoWSPort)",
+  "address": "$(CentrifugoWSAddress)",
+  "redis_host": "$(CentrifugoWSHost)",
+  "redis_port":"$(CentrifugoWSPort)",
+  "redis_sentinels": "$(CentrifugoWSRedisSentinels)",
+  "redis_db": "$(CentrifugoWSRedisDB)",
+  "redis_master_name": "$(CentrifugoWSRedisMasterName)",
   "namespaces": [
     {
       "name": "public",
