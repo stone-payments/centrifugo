@@ -11,7 +11,7 @@ env:
     REDIS_DB: "12"
     REDIS_HOST: "celebro-redis.front.apps.stone.com.br"
     REDIS_MASTER_NAME: "ptool"
-    REDIS_PORT: 6379
+    REDIS_PORT: "6379"
     REDIS_SENTINELS: "172.17.55.88:26379,172.17.55.89:26379,172.18.55.88:26379,172.18.55.89:26379"
   secrets:
     ADMIN_PASSWORD: #{ADMIN_PASSWORD}#
