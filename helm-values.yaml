@@ -27,25 +27,21 @@ serviceAccount:
   name: #{SERVICE_ACCOUNT}#
 
 ingress:
-  externalIngress:
+
+  internalIngress:
     enabled: true
     pathType: ImplementationSpecific
     annotations:
-      kubernetes.io/ingress.class: #{INGRESS_CLASS}#
+      kubernetes.io/ingress.class: #{INTERNAL_INGRESS_CLASS}#
       kubernetes.io/tls-acme: "true"
       cert-manager.io/cluster-issuer: "letsencrypt"
     hosts:
-      - host: #{INGRESS_HOST}#
+      - host: #{INTERNAL_INGRESS_HOST}#
         paths:
           - /
     tls:
       - hosts:
-          - #{INGRESS_HOST}#
-        secretName: centrifugo-ws-tls
-
-  internalIngress:
-    enabled: false
-    pathType: ImplementationSpecific
+          - #{INTERNAL_INGRESS_HOST}#
 
 resources:
   requests:
