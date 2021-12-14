@@ -4,6 +4,7 @@ cat <<EOF >./config.json
 {
   "secret": "$SECRET",
   "web": true,
+  "engine" : "$ENGINE",
   "admin_password": "$ADMIN_PASSWORD",
   "admin_secret": "$ADMIN_SECRET",
   "port": "$PORT",
