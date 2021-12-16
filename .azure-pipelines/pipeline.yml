@@ -1,0 +1,89 @@
+name: $(SourceBranchName)_$(Date:yyyyMMdd)$(Rev:.r)
+trigger:
+  branches:
+    include:
+      - master
+      - develop
+  paths:
+    include:
+      - config.json
+
+pr:
+  branches:
+    include:
+      - master
+      - develop
+  paths:
+    include:
+      - config.json
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  Github.Project.Path: 'github.com/stone-payments/centrifugo'
+  GCP.ProjectID: si26ef9dii9zscrxrecql6kl8eguw2 # front-common-non-prod
+  GCP.ContainerRegistry: 'front-common-non-prod-front'
+  DockerImageName: "$(GCP.ProjectID)/centrifugo-ws"
+
+jobs:
+  - job: BuildBinary
+    pool: "front-gcp-functions-non-prod-agents"
+    steps:
+    - task: shellexec@0
+      displayName: 'Get centrifugo binary'
+      inputs:
+        code: wget https://github.com/centrifugal/centrifugo/releases/download/v1.7.4/centrifugo-1.7.4-linux-amd64.zip
+    - task: ExtractFiles@1
+      displayName: 'Extract files '
+      inputs:
+        archiveFilePatterns: centrifugo-1.7.4-linux-amd64.zip
+        destinationFolder: $(System.DefaultWorkingDirectory)
+        cleanDestinationFolder: false
+    - task: shellexec@0
+      displayName: Rename and move file
+      inputs:
+        code: mv centrifugo-1.7.4-linux-amd64/centrifugo centrifugo
+
+    - task: retrieve-google-secret-manager@0
+      displayName: Get Secret Keys
+      inputs:
+        project: '$(GCP.ProjectID)'
+
+    - bash: |
+        cd $(System.DefaultWorkingDirectory)/
+        ls -la
+        mkdir artifacts
+        mv -t artifacts/ helm-values.yaml
+      workingDirectory: '$(System.DefaultWorkingDirectory)/'
+      displayName: 'mv files'
+
+    - task: PublishBuildArtifacts@1
+      displayName: 'Publish artifact'
+      inputs:
+        PathtoPublish: '$(System.DefaultWorkingDirectory)/artifacts'
+        ArtifactName: build
+
+  - job: DockerBuild
+    steps:
+    - task: Docker@2
+      displayName: Login to GCR
+      inputs:
+        containerRegistry: 'front-common-non-prod-front'
+        command: 'login'
+
+    - task: Docker@2
+      displayName: "Build image"
+      inputs:
+        containerRegistry: 'front-common-non-prod-front'
+        repository: '$(DockerImageName)'
+        command: 'build'
+        Dockerfile: '**/Dockerfile'
+
+    - task: Docker@2
+      displayName: "Push image"
+      inputs:
+        containerRegistry: 'front-common-non-prod-front'
+        tags: $(Build.BuildId)
+        repository: '$(DockerImageName)'
+        command: 'push'

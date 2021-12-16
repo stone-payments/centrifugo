@@ -1,0 +1,12 @@
+version: "3"
+
+services:
+  centrifugo:
+    build:
+      context: .
+    ports:
+      - 8888:8888
+    ulimits:
+      nofile:
+        soft: 65535
+        hard: 65535
