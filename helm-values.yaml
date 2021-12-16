@@ -55,6 +55,7 @@ ingress:
     tls:
       - hosts:
           - #{INTERNAL_INGRESS_HOST}#
+        secretName: centrifugo-ws-tls
 
 resources:
   requests:
