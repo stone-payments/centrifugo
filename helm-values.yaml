@@ -1,0 +1,82 @@
+replicaCount: 3
+
+image:
+  repository: #{IMAGE_REPOSITORY}#
+
+env:
+  variables:
+    ADDRESS: #{CENTRIFUGOWS_ADDRESS}#
+    ENGINE: #{CENTRIFUGOWS_ENGINE}#
+    PORT: #{CENTRIFUGOWS_PORT}#
+    REDIS_DB: #{CENTRIFUGOWS_REDIS_DB}#
+    REDIS_HOST: #{CENTRIFUGOWS_REDIS_HOST}#
+    REDIS_PORT: #{CENTRIFUGOWS_REDIS_PORT}#
+  secrets:
+    ADMIN_PASSWORD: #{CENTRIFUGOWS_ADMIN_PASSWORD}#
+    ADMIN_SECRET: #{CENTRIFUGOWS_ADMIN_SECRET}#
+    SECRET: #{CENTRIFUGOWS_SECRET}#
+
+deploymentStrategy:
+  type: RollingUpdate
+  rollingUpdate:
+    maxUnavailable: 25%
+
+livenessProbe:
+  enabled: false
+readinessProbe:
+  enabled: false
+
+service:
+  type: ClusterIP
+  port: 8888
+
+healthCheckPath: "/"
+
+environments:
+
+serviceAccount:
+  create: false
+  annotations: {}
+  name: #{SERVICE_ACCOUNT}#
+
+ingress:
+
+  internalIngress:
+    enabled: true
+    pathType: ImplementationSpecific
+    annotations:
+      kubernetes.io/ingress.class: #{INTERNAL_INGRESS_CLASS}#
+      kubernetes.io/tls-acme: "true"
+      cert-manager.io/cluster-issuer: "letsencrypt"
+    hosts:
+      - host: #{INTERNAL_INGRESS_HOST}#
+        paths:
+          - /
+    tls:
+      - hosts:
+          - #{INTERNAL_INGRESS_HOST}#
+        secretName: centrifugo-ws-tls
+
+resources:
+  requests:
+    memory: "128Mi"
+    cpu: "250m"
+  limits:
+    memory: "256Mi"
+    cpu: "500m"
+
+autoscaling:
+  enabled: true
+  minReplicas: #{MIN_REPLICAS}#
+  maxReplicas: #{MAX_REPLICAS}#
+  targetCPUUtilizationPercentage: 80
+  targetMemoryUtilizationPercentage: 80
+
+minAvailable: 60%
+nodeSelector:
+  cloud.google.com/gke-nodepool: "inside-pool"
+tolerations:
+  - key: "node-pool"
+    operator: "Equal"
+    value: "inside"
+    effect: "NoSchedule"
