@@ -1,0 +1,22 @@
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: Centrifugo
+  title: Centrifugo
+  description: Serviço para possibilitar web-socket para a notificação no front do celebro de ações feitas em background, com a criação de cases.
+  namespace: stone
+  annotations:
+    legacy.stone.tech/owner-email: CHANGE_ME
+    legacy.stone.tech/prod-date: CHANGE_ME
+    stone.tech/on-prem-sites: Google Cloud
+  labels:
+    legacy.stone.tech/internal-user-auth-base: CHANGE_ME
+    legacy.stone.tech/access-request-type:  CHANGE_ME
+    legacy.stone.tech/handle-lgpd:  CHANGE_ME
+    legacy.stone.tech/customer-auth-method:  CHANGE_ME
+    stone.tech/endpoint-type:  CHANGE_ME
+spec:
+  type: service
+  lifecycle: production
+  owner: stone-payments/ADD_OWNER_TEAM #CHANGE IF NOT OWNER TEAM IS CORRECTLY
